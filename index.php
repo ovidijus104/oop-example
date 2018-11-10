@@ -10,14 +10,34 @@ $request = Request::createFromGlobals();
 $loader = new Twig_Loader_Filesystem('View', __DIR__ . '/src/Weather');
 $twig = new Twig_Environment($loader, ['cache' => __DIR__ . '/cache', 'debug' => true]);
 
+
 $controller = new \Weather\Controller\StartPage();
 switch ($request->getRequestUri()) {
     case '/week':
-        $renderInfo = $controller->getWeekWeather();
+        $dbRecource = 'standart-db';
+        $renderInfo = $controller->getWeekWeather($dbRecource);
         break;
+    case '/week-google-api':
+        $dbRecource = 'google-api';
+        $renderInfo = $controller->getWeekWeather($dbRecource);
+        break;
+    case '/today-google-api':
+        $dbRecource = 'google-api';
+        $renderInfo = $controller->getTodayWeather($dbRecource);
+        break;
+    case '/week-weather-json':
+        $dbRecource = 'weather-db';
+        $renderInfo = $controller->getWeekWeather($dbRecource);
+        break;
+    case '/today-weather-json':
+        $dbRecource = 'weather-db';
+        $renderInfo = $controller->getTodayWeather($dbRecource);
+        break;
+
     case '/':
     default:
-        $renderInfo = $controller->getTodayWeather();
+        $dbRecource = 'standart-db';
+        $renderInfo = $controller->getTodayWeather($dbRecource);
     break;
 }
 $renderInfo['context']['resources_dir'] = 'src/Weather/Resources';
@@ -29,5 +49,5 @@ $response = new Response(
     Response::HTTP_OK,
     array('content-type' => 'text/html')
 );
-//$response->prepare($request);
+$response->prepare($request);
 $response->send();

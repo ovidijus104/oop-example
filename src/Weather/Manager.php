@@ -5,13 +5,18 @@ namespace Weather;
 use Weather\Api\DataProvider;
 use Weather\Api\DbRepository;
 use Weather\Model\Weather;
-
+use Weather\Api\GoogleApi;
+use Weather\Api\WeatherRepository;
 class Manager
 {
     /**
      * @var DataProvider
      */
     private $transporter;
+
+    function __construct($transporter) {
+        $this->transporter = $transporter;
+    }
 
     public function getTodayInfo(): Weather
     {
@@ -25,11 +30,17 @@ class Manager
 
     private function getTransporter()
     {
-        if (null === $this->transporter) {
-            $this->transporter = new DbRepository();
+        switch ($this->transporter) {
+            case 'google-api':
+                return $this->transporter = new GoogleApi();
+                break;
+            case 'standart-db':
+                return $this->transporter = new DbRepository('Data');
+                break;
+            case 'weather-db':
+                return $this->transporter = new DbRepository('Weather');
+            break;
         }
-
-        return $this->transporter;
     }
 }
 

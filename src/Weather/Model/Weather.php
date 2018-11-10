@@ -11,6 +11,22 @@ class Weather
     ];
 
     /**
+     * @var string
+     */
+    protected $day;
+
+    /**
+     * @var integer
+     */
+    protected $dayLow;
+
+
+    /**
+     * @var integer
+     */
+    protected $dayHigh;
+
+    /**
      * @var integer
      */
     protected $dayTemp;
@@ -26,6 +42,11 @@ class Weather
     protected $sky;
 
     /**
+     * @var string
+     */
+    protected $skyText;
+
+    /**
      * @var \DateTime
      */
     protected $date;
@@ -33,7 +54,7 @@ class Weather
     /**
      * @return int
      */
-    public function getDayTemp(): int
+    public function getDayTemp(): ?int
     {
         return $this->dayTemp;
     }
@@ -41,7 +62,7 @@ class Weather
     /**
      * @param int $dayTemp
      */
-    public function setDayTemp(int $dayTemp): void
+    public function setDayTemp(?int $dayTemp): void
     {
         $this->dayTemp = $dayTemp;
     }
@@ -57,7 +78,7 @@ class Weather
     /**
      * @param int $nightTemp
      */
-    public function setNightTemp(int $nightTemp): void
+    public function setNightTemp(?int $nightTemp): void
     {
         $this->nightTemp = $nightTemp;
     }
@@ -97,5 +118,69 @@ class Weather
     public function getSkySymbol()
     {
         return $this->map[$this->sky];
+    }
+
+    /**
+     * @return string
+     */
+    public function getDay()
+    {
+        return $this->day;
+    }
+
+    /**
+     * @param string $day
+     */
+    public function setDay($day)
+    {
+        $this->day = $day;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSkyText()
+    {
+        return $this->skyText;
+    }
+
+    /**
+     * @param string $skyText
+     */
+    public function setSkyText($skyText)
+    {
+        $this->skyText = $skyText;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDayLow(): ?int
+    {
+        return $this->dayLow;
+    }
+
+    /**
+     * @param int $dayLow
+     */
+    public function setDayLow(?int $dayLow): void
+    {
+        $this->dayLow = $dayLow;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDayHigh(): ?int
+    {
+        return $this->dayHigh;
+    }
+
+    /**
+     * @param int $dayHigh
+     */
+    public function setDayHigh(?int $dayHigh)
+    {
+        $this->dayHigh = $dayHigh;
     }
 }

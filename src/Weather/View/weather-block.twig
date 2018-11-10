@@ -1,11 +1,24 @@
 <div class="widget style1 navy-bg">
     <div class="row">
         <div class="col-xs-4">
-            <i class="fa fa-{{ item.getSkySymbol }} fa-5x"></i>
+            {% if item.getSkySymbol is defined %}
+                <i class="fa fa-{{ item.getSkySymbol }} fa-5x"></i>
+            {% endif %}
+            {% if item.getSkyText is defined %}
+                <h4>{{ item.getSkyText }}</h4>
+            {% endif %}
         </div>
         <div class="col-xs-8 text-right">
             <span>{{ item.getDate|date("Y-m-d") }}</span>
-            <h2 class="font-bold">{{ item.getDayTemp }}'C</h2>
+            <h2 class="font-bold">
+                {% if item.getDayTemp is defined %}
+                    {{ item.getDayTemp }}
+                {% endif %}
+                {% if item.getDayLow and item.getDayHigh is defined %}
+                    Day Low:  {{ item.getDayLow }}'C <br />
+                    Day High: {{ item.getDayHigh }}'C
+                {% endif %}
+            </h2>
         </div>
     </div>
 </div>
